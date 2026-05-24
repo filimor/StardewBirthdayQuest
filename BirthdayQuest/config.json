@@ -2,5 +2,5 @@
   "BirthdayNotification": true,
   "BirthdayQuest": true,
   "LovedGiftsHint": false,
-  "NpcRoutineHint": false
+  "NpcScheduleHint": false
 }

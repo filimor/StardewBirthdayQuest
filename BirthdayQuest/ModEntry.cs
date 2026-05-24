@@ -97,8 +97,8 @@ namespace BirthdayQuest
                 mod: this.ModManifest,
                 name: () => "Schedule hint",
                 tooltip: () => "Adds the birthday NPC's schedule to the gifting quest",
-                getValue: () => this.Config.NpcRoutineHint,
-                setValue: value => this.Config.NpcRoutineHint = value
+                getValue: () => this.Config.NpcScheduleHint,
+                setValue: value => this.Config.NpcScheduleHint = value
             );
         }
 
@@ -331,7 +331,7 @@ namespace BirthdayQuest
                 }
             }
 
-            if (this.Config.NpcRoutineHint)
+            if (this.Config.NpcScheduleHint)
             {
                 var scheduleString = this.GetTodayNpcSchedule(npc, pronouns);
                 if (scheduleString != string.Empty)

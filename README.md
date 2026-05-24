@@ -8,6 +8,8 @@ Perfect for people who always forget to give birthday presents!
 
 ![Birthday quest - loved gifts hint](screenshots/quest3.png)
 
+![Birthday quest - schedule hint](screenshots/schedule.png)
+
 ![Wake-up birthday reminder](screenshots/wake_msg.png)
 
 e.g. on Spring 14 (Haley's birthday)...
@@ -27,11 +29,20 @@ Change the third line to:
   "LovedGiftsHint": true
 ```
 
+## How can I enable schedule hint?
+
+You can enable it in the config. Config is located in BirthdayQuest/config.json.
+Change the fourth line to:
+```
+  "NpcScheduleHint": true
+```
+
 Available Config options:
 
 - `BirthdayNotification`: shows a wake-up message when today is an NPC's birthday. Default: `true`.
 - `BirthdayQuest`: adds a one-day birthday gift quest to your quest log. Default: `true`.
 - `LovedGiftsHint`: adds a list of loved gifts to the birthday quest text. Default: `false`.
+- `NpcScheduleHint`: adds the birthday NPC's schedule to the birthday quest text. Default: `false`.
 
 You can also use GMCM (see below) to edit config values:
 
