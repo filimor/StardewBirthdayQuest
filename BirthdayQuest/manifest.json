@@ -6,5 +6,11 @@
     "UniqueID": "ern.birthdayquest",
     "EntryDll": "BirthdayQuest.dll",
     "MinimumApiVersion": "4.0.0",
-    "UpdateKeys": ["Nexus:46184"]
+    "UpdateKeys": ["Nexus:46184"],
+    "Dependencies": [
+        {
+            "UniqueID": "spacechase0.GenericModConfigMenu",
+            "IsRequired": false
+        }
+    ]
   }

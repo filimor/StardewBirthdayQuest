@@ -33,11 +33,25 @@ Available Config options:
 - `BirthdayQuest`: adds a one-day birthday gift quest to your quest log. Default: `true`.
 - `LovedGiftsHint`: adds a list of loved gifts to the birthday quest text. Default: `false`.
 
+You can also use GMCM (see below) to edit config values:
+
+## Generic Mod Config Menu (GMCM) support (optional)
+
+If you have [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098) installed, you can edit config values within the GMCM menue.
+
+- if on title screen: click cog button on bottom left -> click Birthday Quest
+- if in game: esc -> click controller icon -> scroll to bottom -> click Mod Options -> click Birthday Quest
+
+![GMCM config](screenshots/gmcm.png)
+
 
 ### TODOs
 - [x] add recommended gift (by taste) to dialoge/ quest - added toggle on from config.json
-- [ ] add support for Generic Mod Config Menu (GMCM)
+- [x] add support for Generic Mod Config Menu (GMCM)
 - [x] fix pronouns
+- [x] fix no "birthday gift" dialogue from NPC
+- [x] fix birthday quests showing up on quest board
+- [x] fix finishing birthday quest giving prize ticket
+- [x] add cross mod compatibility
 - [ ] add npc schedule to quest
-- [ ] add cross mod compatibility
 - [ ] add translation compatibility

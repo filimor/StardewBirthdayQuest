@@ -26,6 +26,8 @@ namespace BirthdayQuest
         {
             this.Config = this.Helper.ReadConfig<ModConfig>();
 
+            helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
+
             helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
 
             helper.Events.GameLoop.DayStarted += this.OnDayStarted;
@@ -41,6 +43,56 @@ namespace BirthdayQuest
         /*********
         ** Private methods
         *********/
+
+        /*********
+        ** GMCM supports
+        *********/
+
+        private void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
+        {
+            var configMenu = this.Helper.ModRegistry.GetApi<IGenericModConfigMenuApi>("spacechase0.GenericModConfigMenu");
+
+            if (configMenu is null)
+            {
+                return;
+            }
+
+            // register mod
+            configMenu.Register(
+                mod: this.ModManifest,
+                reset: () => this.Config = new ModConfig(),
+                save: () =>
+                {
+                    this.Helper.WriteConfig(this.Config);
+                    this.Helper.GameContent.InvalidateCache("Data/SpecialOrders");
+                }
+            );
+
+            // add some config options
+            configMenu.AddBoolOption(
+                mod: this.ModManifest,
+                name: () => "Birthday notification",
+                tooltip: () => "Shows a wake-up message when today is an NPC's birthday.",
+                getValue: () => this.Config.BirthdayNotification,
+                setValue: value => this.Config.BirthdayNotification = value
+            );
+
+            configMenu.AddBoolOption(
+                mod: this.ModManifest,
+                name: () => "Birthday quest",
+                tooltip: () => "Adds a one-day birthday gift quest to your quest log.",
+                getValue: () => this.Config.BirthdayQuest,
+                setValue: value => this.Config.BirthdayQuest = value
+            );
+
+            configMenu.AddBoolOption(
+                mod: this.ModManifest,
+                name: () => "Loved gifts hint",
+                tooltip: () => "Adds a list of loved gifts to the birthday quest text.",
+                getValue: () => this.Config.LovedGiftsHint,
+                setValue: value => this.Config.LovedGiftsHint = value
+            );
+        }
 
         /*********
         ** helper funcs - getting birthdays
