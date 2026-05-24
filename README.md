@@ -66,3 +66,4 @@ If you have [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mo
 - [x] add cross mod compatibility
 - [x] add npc schedule to quest
 - [ ] add translation compatibility
+- [ ] add gh release to UpdateKeys
