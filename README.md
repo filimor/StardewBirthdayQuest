@@ -37,7 +37,7 @@ You can also use GMCM (see below) to edit config values:
 
 ## Generic Mod Config Menu (GMCM) support (optional)
 
-If you have [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098) installed, you can edit config values within the GMCM menue.
+If you have [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098) installed, you can edit config values within the GMCM menu.
 
 - if on title screen: click cog button on bottom left -> click Birthday Quest
 - if in game: esc -> click controller icon -> scroll to bottom -> click Mod Options -> click Birthday Quest
