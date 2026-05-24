@@ -1,5 +1,6 @@
 {
   "BirthdayNotification": true,
   "BirthdayQuest": true,
-  "LovedGiftsHint": false
+  "LovedGiftsHint": false,
+  "NpcRoutineHint": false
 }

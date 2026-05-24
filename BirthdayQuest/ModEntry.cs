@@ -92,6 +92,14 @@ namespace BirthdayQuest
                 getValue: () => this.Config.LovedGiftsHint,
                 setValue: value => this.Config.LovedGiftsHint = value
             );
+
+            configMenu.AddBoolOption(
+                mod: this.ModManifest,
+                name: () => "Schedule hint",
+                tooltip: () => "Adds the birthday NPC's schedule to the gifting quest",
+                getValue: () => this.Config.NpcRoutineHint,
+                setValue: value => this.Config.NpcRoutineHint = value
+            );
         }
 
         /*********
@@ -232,6 +240,7 @@ namespace BirthdayQuest
 
         private void OnDayStarted(object? sender, DayStartedEventArgs e)
         {
+            this.Helper.GameContent.InvalidateCache("Data/SpecialOrders");
             birthdayNpc =  this.GetTodayBirthdayNpcs();
 
             if (!this.Config.BirthdayQuest)
@@ -319,6 +328,15 @@ namespace BirthdayQuest
                 {
                     var lovedItemsText = this.FancyJoin(lovedItems, pronouns);
                     baseText = baseText + lovedItemsText;
+                }
+            }
+
+            if (this.Config.NpcRoutineHint)
+            {
+                var scheduleString = this.GetTodayNpcSchedule(npc, pronouns);
+                if (scheduleString != string.Empty)
+                {
+                    baseText += "\n\n" + scheduleString;
                 }
             }
 
@@ -460,6 +478,75 @@ namespace BirthdayQuest
 
             ShowNextBirthdayNotification();
 
+        }
+
+        /*********
+        ** Schedules
+        *********/
+        private string GetTodayNpcSchedule(string npcName, PronounSet pronouns)
+        {
+            var npc = Game1.getCharacterFromName(npcName);
+            var output = string.Empty;
+
+            if (npc is null)
+            {
+                return output; // skip if char not available
+            }
+
+            if (npc.Schedule is null)
+            {
+                npc.TryLoadSchedule(); // try reloading if no valid schedule
+            }
+            var schedule = npc.Schedule;
+            if (schedule is null || schedule.Count == 0)
+            {
+                return output;
+            }
+
+            foreach (var move in schedule.Values.OrderBy(v => v.time))
+            {
+               var time = this.FormatTime(move.time);
+               var dest = this.PrettifyLocationName(move.targetLocationName);
+               output += $"\n{time} - {dest}";
+            }
+
+            var possessive = char.ToUpper(pronouns.Possessive[0]) + pronouns.Possessive[1..];
+            output = possessive + " schedule today is:" + output;
+
+            return output;
+        }
+
+        private string FormatTime(int time)
+        {
+            var hour = (time / 100) % 24;
+            var mins = time % 100;
+
+            bool isPm = hour >=12;
+
+            string suffix = isPm ? "pm" : "am";
+
+            if (isPm)
+            {
+                hour -= 12;
+            }
+            if (hour == 0)
+            {
+                hour = 12;
+            }
+
+            var strHour = hour.ToString();
+            var strMins = mins.ToString();
+
+            if (strMins.Length == 1){
+                strMins = "0" + strMins;
+            }
+
+            return strHour + ":" + strMins + " " + suffix;
+        }
+
+        private string PrettifyLocationName(string locationId)
+        {
+            return Game1.getLocationFromName(locationId)?.DisplayName ?? locationId;
         }
     }
 }

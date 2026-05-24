@@ -53,5 +53,5 @@ If you have [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mo
 - [x] fix birthday quests showing up on quest board
 - [x] fix finishing birthday quest giving prize ticket
 - [x] add cross mod compatibility
-- [ ] add npc schedule to quest
+- [x] add npc schedule to quest
 - [ ] add translation compatibility
