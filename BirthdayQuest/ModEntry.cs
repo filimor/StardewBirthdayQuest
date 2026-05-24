@@ -253,6 +253,8 @@ namespace BirthdayQuest
             newSpecialOrder.Name = $"{npc}'s birthday";
             newSpecialOrder.Requester = npc;
             newSpecialOrder.Duration = QuestDuration.OneDay;
+            // add custom OrderType to avoid quests showing up on town board + prize ticket reward
+            newSpecialOrder.OrderType = "BirthdayQuest";
 
             var pronouns = this.GetPronouns(npc);
 
@@ -275,10 +277,10 @@ namespace BirthdayQuest
 
             // add objective to order; need SpecialOrderObjectiveData
             var newObjective = new SpecialOrderObjectiveData();
-            newObjective.Type = "Deliver";
+            newObjective.Type = "Gift";
             newObjective.Text = $"Give {npc} a birthday gift.";
             newObjective.RequiredCount = "1";
-            newObjective.Data = new Dictionary<string, string>{{"TargetName", npc}};
+            newObjective.Data = new Dictionary<string, string>{{"TargetName", npc}, {"MinimumLikeLevel", "None"}};
             newSpecialOrder.Objectives = new List<SpecialOrderObjectiveData> {newObjective};
 
             // add rewards to order; need SpecialOrderRewardData
