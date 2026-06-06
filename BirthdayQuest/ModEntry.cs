@@ -100,6 +100,15 @@ namespace BirthdayQuest
                 getValue: () => this.Config.NpcScheduleHint,
                 setValue: value => this.Config.NpcScheduleHint = value
             );
+
+            configMenu.AddBoolOption(
+                mod: this.ModManifest,
+                name: () => "Skip unknown NPCs",
+                tooltip: () => "Skip notifications for NPCs you haven't met yet.",
+                getValue: () => this.Config.SkipUnknownNpcs,
+                setValue: value => this.Config.SkipUnknownNpcs = value
+            );
+
         }
 
         /*********
@@ -236,6 +245,8 @@ namespace BirthdayQuest
 
         }
 
+        private bool IsNpcKnown(string npc) => Game1.player.friendshipData.ContainsKey(npc);
+
         private List<string> birthdayNpc =  new List<string>();
 
         private void OnDayStarted(object? sender, DayStartedEventArgs e)
@@ -249,6 +260,11 @@ namespace BirthdayQuest
             }
 
             foreach (var npc in birthdayNpc){
+                if (this.Config.SkipUnknownNpcs && !IsNpcKnown(npc))
+                {
+                    continue;
+                }
+                
                 AddBirthdayQuest(npc);
             }
 
@@ -392,7 +408,11 @@ namespace BirthdayQuest
                 {
                     foreach (var npc in birthday.Value)
                     {
-
+                        if (this.Config.SkipUnknownNpcs && !IsNpcKnown(npc)
+                        {
+                                continue;
+                        }
+                        
                         string orderId = $"BirthdayQuest.{npc}.BirthdayGift";
                         data[orderId] = this.BuildBirthdaySpecialOrderData(npc);
                     }
